@@ -73,6 +73,9 @@ const I18N = {
       note: 'We provide detailed photo & video reports, health documents and support with international transportation if needed.',
       noteAccent:
         'For quick response, please send us a message on WhatsApp or email with your name and preferred kitten type.',
+      whButton: 'Write in WhatsApp',
+      whHint:
+        'We answer the fastest in WhatsApp. Tap the button and send us a short message about the kitten you are looking for.',
     },
     footer: {
       brand: 'Premium Sphynx Dubai',
@@ -139,13 +142,12 @@ const I18N = {
     contact: {
       title: 'Контакты и бронь котят',
       text: 'Расскажите, какого сфинкса вы ищете — мы подберём идеального котёнка под ваш запрос.',
-      emailLabel: 'E‑mail',
-      phoneLabel: 'Телефон / WhatsApp',
-      locationLabel: 'Локация',
-      locationValue: 'Дубай, ОАЭ',
       note: 'Мы отправляем подробные фото и видео-отчёты, готовим все медицинские документы и помогаем с транспортировкой.',
       noteAccent:
-        'Для быстрого ответа напишите нам в WhatsApp или на почту, указав своё имя и желаемый тип котёнка.',
+        'Для быстрого ответа напишите нам в WhatsApp, указав своё имя и желаемый тип котёнка.',
+      whButton: 'Написать в WhatsApp',
+      whHint:
+        'Мы быстрее всего отвечаем в WhatsApp. Нажмите на кнопку и отправьте нам короткое сообщение о том, какого котёнка вы ищете.',
     },
     footer: {
       brand: 'Premium Sphynx Dubai',
@@ -212,13 +214,12 @@ const I18N = {
     contact: {
       title: 'التواصل والحجز',
       text: 'أخبرنا بنوع قط سفنكس الذي تفضّله وسنساعدك في اختيار القِط المثالي لعائلتك.',
-      emailLabel: 'البريد الإلكتروني',
-      phoneLabel: 'الهاتف / واتساب',
-      locationLabel: 'الموقع',
-      locationValue: 'دبي، الإمارات العربية المتحدة',
       note: 'نرسل صورًا ومقاطع فيديو تفصيلية، مع تقارير طبية كاملة ومساعدة في النقل الدولي.',
       noteAccent:
-        'للحصول على رد سريع، راسلنا عبر واتساب أو البريد مع اسمك ونوع القط الذي تفضله.',
+        'للحصول على رد سريع، راسلنا عبر واتساب مع اسمك ونوع القط الذي تفضله.',
+      whButton: 'راسلنا عبر واتساب',
+      whHint:
+        'نجيب بأسرع ما يمكن عبر واتساب. اضغط على الزر وأرسل لنا رسالة قصيرة عن القِط الذي تبحث عنه.',
     },
     footer: {
       brand: 'بريميوم سفنكس دبي',

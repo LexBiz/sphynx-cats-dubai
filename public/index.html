@@ -50,8 +50,13 @@
           <a href="#available-cats" class="btn btn-primary">
             <span data-i18n="hero.ctaPrimary">View available kittens</span>
           </a>
-          <a href="#contact" class="btn btn-ghost">
-            <span data-i18n="hero.ctaSecondary">Contact us</span>
+          <a
+            href="https://wa.me/971556503070"
+            class="btn btn-wa"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span data-i18n="contact.whButton">Write in WhatsApp</span>
           </a>
         </div>
         <div class="hero-bottom-note">
@@ -195,30 +200,17 @@
           </div>
           <div class="contact-grid">
             <div class="contact-info">
-              <div class="contact-item">
-                <span class="contact-label" data-i18n="contact.emailLabel"
-                  >Email</span
-                >
-                <a href="mailto:sphynx@example.com" class="contact-value"
-                  >sphynx@example.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label" data-i18n="contact.phoneLabel"
-                  >Phone / WhatsApp</span
-                >
-                <a href="tel:+971500000000" class="contact-value"
-                  >+971 50 000 00 00</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label" data-i18n="contact.locationLabel"
-                  >Location</span
-                >
-                <span class="contact-value" data-i18n="contact.locationValue"
-                  >Dubai, UAE</span
-                >
-              </div>
+              <button
+                class="btn btn-wa contact-wa-btn"
+                type="button"
+                onclick="window.open('https://wa.me/971556503070','_blank')"
+              >
+                <span data-i18n="contact.whButton">Write in WhatsApp</span>
+              </button>
+              <p class="contact-value contact-wa-hint" data-i18n="contact.whHint">
+                We answer the fastest in WhatsApp. Tap the button and send us a
+                short message about the kitten you are looking for.
+              </p>
             </div>
             <div class="contact-note">
               <p data-i18n="contact.note">
