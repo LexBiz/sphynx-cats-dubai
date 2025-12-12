@@ -4,8 +4,7 @@ const STATUS_ORDER = {
   sold: 2,
 };
 
-const PLACEHOLDER_PHOTO =
-  'https://images.pexels.com/photos/6172787/pexels-photo-6172787.jpeg?auto=compress&cs=tinysrgb&w=900';
+const PLACEHOLDER_PHOTO = '/hero-main.jpg';
 
 let currentLang = 'en';
 
