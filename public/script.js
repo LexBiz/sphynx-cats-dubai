@@ -5,7 +5,241 @@ const STATUS_ORDER = {
 };
 
 const PLACEHOLDER_PHOTO =
-  'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800';
+  'https://images.pexels.com/photos/6172787/pexels-photo-6172787.jpeg?auto=compress&cs=tinysrgb&w=900';
+
+let currentLang = 'en';
+
+const I18N = {
+  en: {
+    hero: {
+      badge: 'Dubai • Exclusive cattery',
+      title: 'Premium Sphynx Cats for Sale',
+      subtitle:
+        'Healthy, friendly and stunning sphynx kittens with perfect temperament and premium care.',
+      ctaPrimary: 'View available kittens',
+      ctaSecondary: 'Contact us',
+      note: 'Small exclusive litters • Worldwide assistance',
+    },
+    about: {
+      title: 'Sphynx Cats & Kittens in Dubai (UAE)',
+      text: 'Boutique cattery in Dubai, UAE, focused on healthy, well-socialized sphynx kittens with exceptional temperament and type.',
+      familyTitle: 'Family raised',
+      familyText:
+        'All kittens grow in our home, not in cages. They live with us as family members and are used to children, guests and everyday sounds.',
+      healthTitle: 'Health & guarantee',
+      healthText:
+        'Each kitten receives full veterinary care, vaccinations, deworming, and a health book. We provide a clear contract and support.',
+      vetTitle: 'Vet supervised',
+      vetText:
+        'Our breeding program is built around regular vet checks and responsible pairing to support strong immunity and longevity.',
+      supportTitle: 'Lifetime support',
+      supportText:
+        'We stay in touch after you take your sphynx home and are ready to help with care, nutrition and adaptation in a new country.',
+    },
+    cats: {
+      title: 'Available Sphynx Cats',
+      text: 'All kittens are vaccinated, dewormed and fully socialized. The list updates in real time.',
+      filterActive: 'Active',
+      filterReserved: 'Reserved',
+      emptyTitle: 'No kittens are available at the moment.',
+      emptyNote:
+        'Contact us to join the waiting list for the next premium litter.',
+      statusAvailable: 'Available',
+      statusReserved: 'Reserved',
+      statusSold: 'Sold',
+      metaActive: 'Ready for new home',
+      metaReserved: 'Reservation confirmed',
+      metaSold: 'Placed in loving home',
+    },
+    philosophy: {
+      title: 'Our breeding philosophy',
+      text: 'We breed for health, character and harmony of the sphynx type, not for quantity. Each litter is planned and limited.',
+      geneticTitle: 'Genetic care',
+      geneticText:
+        'Breeding cats are carefully selected and checked to help avoid hereditary issues and support strong, healthy kittens.',
+      homeTitle: 'Home environment',
+      homeText:
+        'Kittens live in a clean, calm home environment with climbing trees, toys and constant human contact from the first weeks.',
+      travelTitle: 'Preparation for travel',
+      travelText:
+        'We help with export documents, microchips and travel carriers, so your sphynx can safely arrive anywhere in the world.',
+    },
+    contact: {
+      title: 'Contact & Reservations',
+      text: 'Tell us about your ideal sphynx kitten — we will help you choose the perfect match.',
+      emailLabel: 'Email',
+      phoneLabel: 'Phone / WhatsApp',
+      locationLabel: 'Location',
+      locationValue: 'Dubai, UAE',
+      note: 'We provide detailed photo & video reports, health documents and support with international transportation if needed.',
+      noteAccent:
+        'For quick response, please send us a message on WhatsApp or email with your name and preferred kitten type.',
+    },
+    footer: {
+      brand: 'Premium Sphynx Dubai',
+      tagline: 'Exclusive sphynx kittens • Boutique cattery',
+    },
+    lang: {
+      label: 'Language',
+    },
+  },
+  ru: {
+    hero: {
+      badge: 'Дубай • Бутік-питомник',
+      title: 'Премиальные сфинксы на продажу',
+      subtitle:
+        'Здоровые, контактные и очень красивые котята сфинкса с идеальным темпераментом и уходом.',
+      ctaPrimary: 'Смотреть доступных котят',
+      ctaSecondary: 'Связаться с нами',
+      note: 'Небольшие эксклюзивные помёты • Помощь с доставкой по миру',
+    },
+    about: {
+      title: 'Сфинксы и котята сфинкса в Дубае (ОАЭ)',
+      text: 'Бутик-питомник в Дубае, который специализируется на здоровых, хорошо социализированных сфинксах с идеальным характером.',
+      familyTitle: 'В семье, а не в клетках',
+      familyText:
+        'Все котята растут у нас дома, а не в клетках. Они привыкли к детям, гостям и обычным бытовым звукам.',
+      healthTitle: 'Здоровье и гарантии',
+      healthText:
+        'Каждый котёнок проходит ветеринарный осмотр, получает прививки, обработку от паразитов и ветеринарный паспорт.',
+      vetTitle: 'Под контролем ветеринара',
+      vetText:
+        'Племенная программа строится вокруг регулярных проверок здоровья и аккуратного подбора пар.',
+      supportTitle: 'Поддержка на всю жизнь',
+      supportText:
+        'Мы остаёмся на связи после переезда котёнка и помогаем с уходом, питанием и адаптацией.',
+    },
+    cats: {
+      title: 'Доступные коты и котята сфинкса',
+      text: 'Все котята привиты, обработаны и социализированы. Список обновляется в реальном времени.',
+      filterActive: 'Активные',
+      filterReserved: 'В резерве',
+      emptyTitle: 'Сейчас нет доступных котят.',
+      emptyNote:
+        'Напишите нам, чтобы попасть в лист ожидания на следующий помёт.',
+      statusAvailable: 'Доступен',
+      statusReserved: 'В резерве',
+      statusSold: 'Продан',
+      metaActive: 'Готов к переезду в новый дом',
+      metaReserved: 'Бронирование подтверждено',
+      metaSold: 'Уже живёт в любящей семье',
+    },
+    philosophy: {
+      title: 'Наша племенная философия',
+      text: 'Мы разводим сфинксов не количеством, а качеством — здоровье, характер и породный тип. Каждый помёт планируется заранее.',
+      geneticTitle: 'Генетическое здоровье',
+      geneticText:
+        'Производители тщательно отбираются и проверяются, чтобы минимизировать наследственные риски.',
+      homeTitle: 'Домашняя среда',
+      homeText:
+        'Котята растут в спокойной, чистой домашней обстановке, с когтеточками, игрушками и постоянным общением.',
+      travelTitle: 'Подготовка к переезду',
+      travelText:
+        'Помогаем с документами для экспорта, чипами и переносками, чтобы перелёт прошёл максимально комфортно.',
+    },
+    contact: {
+      title: 'Контакты и бронь котят',
+      text: 'Расскажите, какого сфинкса вы ищете — мы подберём идеального котёнка под ваш запрос.',
+      emailLabel: 'E‑mail',
+      phoneLabel: 'Телефон / WhatsApp',
+      locationLabel: 'Локация',
+      locationValue: 'Дубай, ОАЭ',
+      note: 'Мы отправляем подробные фото и видео-отчёты, готовим все медицинские документы и помогаем с транспортировкой.',
+      noteAccent:
+        'Для быстрого ответа напишите нам в WhatsApp или на почту, указав своё имя и желаемый тип котёнка.',
+    },
+    footer: {
+      brand: 'Premium Sphynx Dubai',
+      tagline: 'Эксклюзивные сфинксы • Бутик-питомник',
+    },
+    lang: {
+      label: 'Язык',
+    },
+  },
+  ar: {
+    hero: {
+      badge: 'دبي • مزرعة سفنكس حصرية',
+      title: 'قطط سفنكس فاخرة للبيع',
+      subtitle:
+        'قطط وكِتَن سفنكس صحية وحنونة وجميلة، مع عناية خاصة وطباع هادئة.',
+      ctaPrimary: 'عرض الكِتَن المتاحة',
+      ctaSecondary: 'تواصل معنا',
+      note: 'فترات تزاوج محدودة • مساعدة في الشحن الدولي',
+    },
+    about: {
+      title: 'قطط سفنكس وكتن في دبي (الإمارات)',
+      text: 'مزرعة بوتيك في دبي متخصصة في تربية قطط سفنكس صحية ومُجتمعة بطباع ممتازة.',
+      familyTitle: 'تربى داخل المنزل',
+      familyText:
+        'تعيش جميع الكِتَن معنا في المنزل، وليست في أقفاص، ومعتادة على الأطفال والضيوف وأصوات الحياة اليومية.',
+      healthTitle: 'الصحة والضمان',
+      healthText:
+        'تحصل كل قِطّة على رعاية بيطرية كاملة، وتطعيمات وفحوصات ووثائق صحية واضحة.',
+      vetTitle: 'إشراف بيطري',
+      vetText:
+        'برنامج التربية مبني على فحوصات منتظمة واختيار حذر للأزواج من أجل مناعة قوية.',
+      supportTitle: 'دعم مدى الحياة',
+      supportText:
+        'نبقى على تواصل بعد انتقال القطة إلى منزلها الجديد ونساعد في العناية والتغذية والتأقلم.',
+    },
+    cats: {
+      title: 'قطط سفنكس المتوفرة',
+      text: 'جميع الكِتَن مُطعّمة ومُجتمعة جيدًا، ويتم تحديث القائمة بشكل مستمر.',
+      filterActive: 'متاحة',
+      filterReserved: 'محجوزة',
+      emptyTitle: 'لا توجد كِتَن متاحة حاليًا.',
+      emptyNote:
+        'تواصل معنا لإضافتك إلى قائمة الانتظار للولادة القادمة.',
+      statusAvailable: 'متاح',
+      statusReserved: 'محجوز',
+      statusSold: 'تم البيع',
+      metaActive: 'جاهز للانتقال إلى منزل جديد',
+      metaReserved: 'تم تأكيد الحجز',
+      metaSold: 'في منزل محب بالفعل',
+    },
+    philosophy: {
+      title: 'فلسفة التربية لدينا',
+      text: 'نركز على الصحة والطباع وشكل سفنكس المميز بدلاً من الكمية. يتم التخطيط لكل ولادة بعناية.',
+      geneticTitle: 'العناية الجينية',
+      geneticText:
+        'يتم اختيار القطط البالغة بعناية مع فحوصات جينية لتقليل الأمراض الوراثية.',
+      homeTitle: 'بيئة منزلية',
+      homeText:
+        'تنمو الكِتَن في بيئة منزلية نظيفة وهادئة مع ألعاب وتسلق وتفاعل مستمر.',
+      travelTitle: 'التحضير للسفر',
+      travelText:
+        'نساعد في تجهيز الوثائق والشرائح الإلكترونية وصناديق النقل ليصل القط بأمان إلى أي دولة.',
+    },
+    contact: {
+      title: 'التواصل والحجز',
+      text: 'أخبرنا بنوع قط سفنكس الذي تفضّله وسنساعدك في اختيار القِط المثالي لعائلتك.',
+      emailLabel: 'البريد الإلكتروني',
+      phoneLabel: 'الهاتف / واتساب',
+      locationLabel: 'الموقع',
+      locationValue: 'دبي، الإمارات العربية المتحدة',
+      note: 'نرسل صورًا ومقاطع فيديو تفصيلية، مع تقارير طبية كاملة ومساعدة في النقل الدولي.',
+      noteAccent:
+        'للحصول على رد سريع، راسلنا عبر واتساب أو البريد مع اسمك ونوع القط الذي تفضله.',
+    },
+    footer: {
+      brand: 'بريميوم سفنكس دبي',
+      tagline: 'قطط سفنكس فاخرة • مزرعة بوتيك',
+    },
+    lang: {
+      label: 'اللغة',
+    },
+  },
+};
+
+function t(path) {
+  const parts = path.split('.');
+  let obj = I18N[currentLang];
+  for (const p of parts) {
+    if (!obj || typeof obj !== 'object') return '';
+    obj = obj[p];
+  }
+  return typeof obj === 'string' ? obj : '';
+}
 
 function formatPrice(price) {
   if (!price) return '';
@@ -48,13 +282,13 @@ function createCatCard(cat) {
 
   if (status === 'active') {
     statusPill.classList.add('cat-status-active');
-    statusPill.textContent = 'Available';
+    statusPill.textContent = t('cats.statusAvailable');
   } else if (status === 'reserved') {
     statusPill.classList.add('cat-status-reserved');
-    statusPill.textContent = 'Reserved';
+    statusPill.textContent = t('cats.statusReserved');
   } else {
     statusPill.classList.add('cat-status-sold');
-    statusPill.textContent = 'Sold';
+    statusPill.textContent = t('cats.statusSold');
   }
   photoWrapper.appendChild(statusPill);
 
@@ -107,10 +341,10 @@ function createCatCard(cat) {
   statusMeta.appendChild(dot);
   statusMeta.append(
     status === 'active'
-      ? 'Ready for new home'
+      ? t('cats.metaActive')
       : status === 'reserved'
-      ? 'Reservation confirmed'
-      : 'Placed in loving home'
+      ? t('cats.metaReserved')
+      : t('cats.metaSold')
   );
 
   metaRow.appendChild(statusMeta);
@@ -317,9 +551,48 @@ function initYear() {
   }
 }
 
+function applyTranslations() {
+  const root = document.documentElement;
+  root.lang = currentLang;
+  root.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+  const dict = I18N[currentLang];
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    const value = t(key);
+    if (value) {
+      el.textContent = value;
+    }
+  });
+}
+
+function initLangSwitcher() {
+  const switcher = document.getElementById('langSwitcher');
+  if (!switcher) return;
+
+  switcher.addEventListener('click', (e) => {
+    const btn = e.target.closest('.lang-btn');
+    if (!btn) return;
+    const lang = btn.getAttribute('data-lang');
+    if (!lang || !I18N[lang]) return;
+    currentLang = lang;
+
+    Array.from(switcher.querySelectorAll('.lang-btn')).forEach((b) =>
+      b.classList.toggle('lang-active', b === btn)
+    );
+
+    applyTranslations();
+    // Перезагрузим отображение карточек, чтобы текст статусов был на новом языке
+    loadCats(currentFilter);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initYear();
   initCatModal();
+  applyTranslations();
+  initLangSwitcher();
   initFilters();
   loadCats('active');
 });
