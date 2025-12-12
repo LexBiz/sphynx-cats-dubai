@@ -110,7 +110,7 @@ function requireAdmin(req, res, next) {
 
 // API: Create cat
 app.post('/api/cats', requireAdmin, (req, res) => {
-  const { name, age, price, description, status, photos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } = req.body || {};
 
   if (!name || !age || !price || !description) {
     return res.status(400).json({ message: 'Missing required fields' });
@@ -122,6 +122,8 @@ app.post('/api/cats', requireAdmin, (req, res) => {
     : 'active';
 
   const cats = readCats();
+  const safePhotos = Array.isArray(photos) ? photos.slice(0, 5) : [];
+  const safeVideos = Array.isArray(videos) ? videos.slice(0, 2) : [];
   const newCat = {
     id: uuidv4(),
     name,
@@ -129,7 +131,8 @@ app.post('/api/cats', requireAdmin, (req, res) => {
     price,
     description,
     status: finalStatus,
-    photos: Array.isArray(photos) ? photos.slice(0, 5) : [],
+    photos: safePhotos,
+    videos: safeVideos,
   };
 
   cats.push(newCat);
@@ -140,7 +143,7 @@ app.post('/api/cats', requireAdmin, (req, res) => {
 // API: Update cat
 app.put('/api/cats/:id', requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { name, age, price, description, status, photos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } = req.body || {};
 
   const cats = readCats();
   const index = cats.findIndex((c) => c.id === id);
@@ -154,6 +157,13 @@ app.put('/api/cats/:id', requireAdmin, (req, res) => {
     ? status.toLowerCase()
     : cats[index].status;
 
+  const safePhotos = Array.isArray(photos)
+    ? photos.slice(0, 5)
+    : cats[index].photos || [];
+  const safeVideos = Array.isArray(videos)
+    ? videos.slice(0, 2)
+    : cats[index].videos || [];
+
   cats[index] = {
     ...cats[index],
     name: name ?? cats[index].name,
@@ -161,7 +171,8 @@ app.put('/api/cats/:id', requireAdmin, (req, res) => {
     price: price ?? cats[index].price,
     description: description ?? cats[index].description,
     status: finalStatus,
-    photos: Array.isArray(photos) ? photos.slice(0, 5) : cats[index].photos,
+    photos: safePhotos,
+    videos: safeVideos,
   };
 
   writeCats(cats);
@@ -183,15 +194,21 @@ app.delete('/api/cats/:id', requireAdmin, (req, res) => {
   res.json({ success: true, removedId: removed.id });
 });
 
-// API: Upload photos (up to 5)
+// API: Upload media (photos up to 5, videos up to 2)
 app.post(
   '/api/upload',
   requireAdmin,
-  upload.array('photos', 5),
+  upload.fields([
+    { name: 'photos', maxCount: 5 },
+    { name: 'videos', maxCount: 2 },
+  ]),
   (req, res) => {
-    const files = req.files || [];
-    const filePaths = files.map((f) => `/uploads/${f.filename}`);
-    res.json({ files: filePaths });
+    const files = req.files || {};
+    const photoFiles = files.photos || [];
+    const videoFiles = files.videos || [];
+    const photos = photoFiles.map((f) => `/uploads/${f.filename}`);
+    const videos = videoFiles.map((f) => `/uploads/${f.filename}`);
+    res.json({ photos, videos });
   }
 );
 

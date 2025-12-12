@@ -191,13 +191,18 @@ function fillForm(cat) {
   }
 }
 
-async function uploadPhotos(files) {
-  if (!files || files.length === 0) return [];
+async function uploadMedia(photoFiles, videoFiles) {
+  if ((!photoFiles || photoFiles.length === 0) && (!videoFiles || videoFiles.length === 0)) {
+    return { photos: [], videos: [] };
+  }
 
   const formData = new FormData();
-  Array.from(files)
+  Array.from(photoFiles || [])
     .slice(0, 5)
     .forEach((file) => formData.append('photos', file));
+  Array.from(videoFiles || [])
+    .slice(0, 2)
+    .forEach((file) => formData.append('videos', file));
 
   const res = await apiFetch('/api/upload', {
     method: 'POST',
@@ -210,7 +215,10 @@ async function uploadPhotos(files) {
   }
 
   const data = await res.json();
-  return data.files || [];
+  return {
+    photos: data.photos || [],
+    videos: data.videos || [],
+  };
 }
 
 async function saveCat() {
@@ -221,6 +229,7 @@ async function saveCat() {
   const status = document.getElementById('status').value;
   const description = document.getElementById('description').value.trim();
   const photosInput = document.getElementById('photos');
+  const videosInput = document.getElementById('videos');
   const msg = document.getElementById('formMessage');
 
   msg.textContent = '';
@@ -239,10 +248,21 @@ async function saveCat() {
   };
 
   try {
-    let uploaded = [];
-    if (photosInput.files && photosInput.files.length > 0) {
-      uploaded = await uploadPhotos(photosInput.files);
-      payload.photos = uploaded;
+    let uploadedPhotos = [];
+    let uploadedVideos = [];
+    if (
+      (photosInput.files && photosInput.files.length > 0) ||
+      (videosInput && videosInput.files && videosInput.files.length > 0)
+    ) {
+      const media = await uploadMedia(photosInput.files, videosInput ? videosInput.files : null);
+      uploadedPhotos = media.photos;
+      uploadedVideos = media.videos;
+      if (uploadedPhotos.length) {
+        payload.photos = uploadedPhotos;
+      }
+      if (uploadedVideos.length) {
+        payload.videos = uploadedVideos;
+      }
     }
 
     const method = id ? 'PUT' : 'POST';
@@ -264,6 +284,7 @@ async function saveCat() {
     await res.json();
     msg.textContent = 'Успішно збережено.';
     photosInput.value = '';
+    if (videosInput) videosInput.value = '';
     await loadCats();
   } catch (err) {
     console.error(err);
