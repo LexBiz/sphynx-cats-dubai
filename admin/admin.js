@@ -151,10 +151,11 @@ function clearForm() {
 }
 
 function fillForm(cat) {
+  const form = document.getElementById('catForm');
   const formTitle = document.getElementById('formTitle');
   const deleteBtn = document.getElementById('deleteBtn');
   const preview = document.getElementById('photoPreview');
-  if (!formTitle || !deleteBtn || !preview) return;
+  if (!form || !formTitle || !deleteBtn || !preview) return;
 
   document.getElementById('catId').value = cat.id || '';
   document.getElementById('name').value = cat.name || '';
@@ -178,6 +179,15 @@ function fillForm(cat) {
       div.appendChild(img);
       preview.appendChild(div);
     });
+  }
+
+  // На телефонах переносим фокус к форме, чтобы было видно, что кот выбран
+  try {
+    setTimeout(() => {
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  } catch (_) {
+    // ignore
   }
 }
 
