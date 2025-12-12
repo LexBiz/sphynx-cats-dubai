@@ -953,6 +953,22 @@ body {
   gap: 8px;
 }
 
+.cat-modal-video {
+  margin-top: 8px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(70, 108, 146, 0.95);
+  background: #020817;
+  box-shadow: 0 14px 34px rgba(1, 5, 16, 0.9);
+}
+
+.cat-modal-video-player {
+  width: 100%;
+  max-height: 260px;
+  display: block;
+  background: #000;
+}
+
 .cat-modal-thumb {
   width: 60px;
   height: 60px;

@@ -367,6 +367,7 @@ let catModalOverlay;
 let catModalCloseBtn;
 let catModalMainPhoto;
 let catModalThumbs;
+let catModalVideo;
 let catModalName;
 let catModalStatus;
 let catModalAge;
@@ -381,6 +382,7 @@ function initCatModal() {
   catModalCloseBtn = document.getElementById('catModalClose');
   catModalMainPhoto = document.getElementById('catModalMainPhoto');
   catModalThumbs = document.getElementById('catModalThumbs');
+  catModalVideo = document.getElementById('catModalVideo');
   catModalName = document.getElementById('catModalName');
   catModalStatus = document.getElementById('catModalStatus');
   catModalAge = document.getElementById('catModalAge');
@@ -409,6 +411,7 @@ function openCatModal(cat) {
     Array.isArray(cat.photos) && cat.photos.length > 0
       ? cat.photos
       : [PLACEHOLDER_PHOTO];
+  const videos = Array.isArray(cat.videos) ? cat.videos : [];
 
   if (catModalName) {
     catModalName.textContent = cat.name || 'Sphynx kitten';
@@ -419,10 +422,10 @@ function openCatModal(cat) {
     catModalStatus.classList.add(status);
     catModalStatus.textContent =
       status === 'reserved'
-        ? 'Reserved'
+        ? t('cats.statusReserved')
         : status === 'sold'
-        ? 'Sold'
-        : 'Available';
+        ? t('cats.statusSold')
+        : t('cats.statusAvailable');
   }
 
   if (catModalAge) {
@@ -467,6 +470,18 @@ function openCatModal(cat) {
       });
       catModalThumbs.appendChild(thumb);
     });
+  }
+
+  if (catModalVideo) {
+    catModalVideo.innerHTML = '';
+    if (videos.length > 0) {
+      const video = document.createElement('video');
+      video.className = 'cat-modal-video-player';
+      video.src = videos[0];
+      video.controls = true;
+      video.playsInline = true;
+      catModalVideo.appendChild(video);
+    }
   }
 
   catModal.classList.remove('hidden');
