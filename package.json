@@ -1,0 +1,31 @@
+{
+  "name": "premium-sphynx-cats-landing",
+  "version": "1.0.0",
+  "description": "Premium one-page site for selling sphynx cats with admin panel and JSON storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "sphynx",
+    "cats",
+    "landing",
+    "express",
+    "admin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+
+

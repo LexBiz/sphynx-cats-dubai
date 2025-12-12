@@ -1,0 +1,56 @@
+[
+  {
+    "id": "c3b5a8dd-94ac-4a4f-9d12-222c2d02b222",
+    "name": "Oscar",
+    "age": "5 months",
+    "price": "3200",
+    "description": "Calm, people-oriented boy with strong body, perfect ears and expressive eyes.",
+    "status": "active",
+    "photos": []
+  },
+  {
+    "id": "d4c6b9ee-a1de-4f8a-8e23-333d3e03c333",
+    "name": "Mila",
+    "age": "4 months",
+    "price": "3000",
+    "description": "Gentle sphynx girl, loves to sit on hands and purr, ideal for family with kids.",
+    "status": "reserved",
+    "photos": []
+  },
+  {
+    "id": "e5d7caf0-b2ef-4a9b-9f34-444e4f04d444",
+    "name": "Leo",
+    "age": "1 year",
+    "price": "2500",
+    "description": "Elegant adult sphynx, already trained and fully socialized, lives well with other pets.",
+    "status": "sold",
+    "photos": []
+  },
+  {
+    "id": "f6e8db01-c3f0-4ab0-8a45-555f5a05e555",
+    "name": "Nala",
+    "age": "10 weeks",
+    "price": "3500",
+    "description": "Bright-eyed cream sphynx girl with very affectionate, people-oriented character.",
+    "status": "active",
+    "photos": []
+  },
+  {
+    "id": "a7f9ec12-d4a1-4bc1-9b56-66606b06f666",
+    "name": "Zeus",
+    "age": "4 months",
+    "price": "3900",
+    "description": "Strong boy with excellent ears and profile, playful but very gentle with children.",
+    "status": "reserved",
+    "photos": []
+  },
+  {
+    "id": "b8a0fd23-e5b2-4cd2-a067-77717c070777",
+    "name": "Aurora",
+    "age": "3.5 months",
+    "price": "4100",
+    "description": "Rare color sphynx girl with big expressive eyes and calm, confident temperament.",
+    "status": "active",
+    "photos": []
+  }
+]

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Адмін • Premium Sphynx Cats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/styles.css" />
+  </head>
+  <body>
+    <div class="admin-page-bg"></div>
+    <div class="admin-shell">
+      <header class="admin-header">
+        <div>
+          <h1>Адмін-панель • Premium Sphynx Cats</h1>
+          <p>Керуйте кошенятами, фото та статусами в режимі реального часу.</p>
+        </div>
+        <button id="logoutBtn" class="btn btn-ghost small" type="button">
+          Вийти
+        </button>
+      </header>
+
+      <main class="admin-main">
+        <section id="loginSection" class="card card-glass">
+          <h2>Вхід до адмін-панелі</h2>
+          <p class="muted">
+            Введіть пароль адміністратора з файлу <code>.env</code>.
+          </p>
+          <form id="loginForm" class="form-grid">
+            <label class="field">
+              <span>Пароль</span>
+              <input
+                type="password"
+                id="adminPassword"
+                autocomplete="current-password"
+                required
+              />
+            </label>
+            <button class="btn btn-primary" type="submit">Увійти</button>
+            <p id="loginError" class="error"></p>
+          </form>
+        </section>
+
+        <section id="adminSection" class="admin-grid hidden">
+          <div class="card card-glass">
+            <div class="card-header">
+              <h2>Поточні коти</h2>
+              <button id="refreshBtn" class="btn btn-ghost small" type="button">
+                Оновити
+              </button>
+            </div>
+            <div class="table-wrapper">
+              <table class="table" aria-label="Список котів">
+                <thead>
+                  <tr>
+                    <th>Імʼя</th>
+                    <th>Вік</th>
+                    <th>Ціна</th>
+                    <th>Статус</th>
+                    <th>Фото</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="catsTableBody"></tbody>
+              </table>
+              <div id="catsTableEmpty" class="table-empty">
+                Ще немає котів. Додайте свого першого сфінкса праворуч.
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <div class="card-header">
+              <h2 id="formTitle">Створити / Редагувати кота</h2>
+              <button
+                id="resetFormBtn"
+                class="btn btn-ghost small"
+                type="button"
+              >
+                Очистити
+              </button>
+            </div>
+            <form id="catForm" class="form-grid">
+              <input type="hidden" id="catId" />
+              <label class="field">
+                <span>Імʼя</span>
+                <input type="text" id="name" required />
+              </label>
+              <label class="field">
+                <span>Вік</span>
+                <input
+                  type="text"
+                  id="age"
+                  placeholder="напр. 3 місяці"
+                  required
+                />
+              </label>
+              <label class="field">
+                <span>Ціна</span>
+                <input
+                  type="text"
+                  id="price"
+                  placeholder="напр. 2500"
+                  required
+                />
+              </label>
+              <label class="field">
+                <span>Статус</span>
+                <select id="status">
+                  <option value="active">Активний</option>
+                  <option value="reserved">Зарезервований</option>
+                  <option value="sold">Проданий</option>
+                </select>
+              </label>
+              <label class="field field-wide">
+                <span>Опис</span>
+                <textarea
+                  id="description"
+                  rows="4"
+                  placeholder="Короткий опис, характер, забарвлення тощо."
+                ></textarea>
+              </label>
+
+              <label class="field field-wide">
+                <span>Фото (до 5)</span>
+                <input
+                  type="file"
+                  id="photos"
+                  accept="image/*"
+                  multiple
+                  max="5"
+                />
+                <p class="muted small">
+                  Перше зображення буде головним. Ви можете зберегти кота без
+                  нових фото, щоб залишити попередні.
+                </p>
+              </label>
+
+              <div id="photoPreview" class="photo-preview"></div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Зберегти кота</button>
+                <button
+                  id="deleteBtn"
+                  class="btn btn-danger small"
+                  type="button"
+                >
+                  Видалити
+                </button>
+                <span id="formMessage" class="muted small"></span>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/admin/admin.js"></script>
+  </body>
+  </html>
+
+
