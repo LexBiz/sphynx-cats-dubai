@@ -25,15 +25,17 @@ body {
 }
 
 .top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 80;
-  padding: calc(env(safe-area-inset-top, 0px) + 12px) 24px 12px;
-  background: rgba(2, 8, 23, 0.96);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 8px !important;
+  background: rgba(2, 8, 23, 0.98) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
 }
 
 @media (max-width: 640px) {
