@@ -17,13 +17,11 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css?v=7" />
+    <link rel="stylesheet" href="/styles.css?v=8" />
   </head>
   <body>
     <div class="page-bg"></div>
     <div class="page-bg-overlay"></div>
-
-    <div class="tabby-float" aria-hidden="true">TABBY</div>
 
     <div class="lang-bar">
       <div class="lang-inner">
@@ -300,6 +298,13 @@
         </div>
       </div>
     </div>
+
+    <!-- TABBY fixed label - placed last to be on top -->
+    <div 
+      class="tabby-float" 
+      aria-hidden="true"
+      style="position: fixed !important; top: 10px !important; left: 12px !important; z-index: 9999 !important;"
+    >TABBY</div>
 
     <script src="/script.js"></script>
   </body>
