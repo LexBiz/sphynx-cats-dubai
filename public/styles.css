@@ -36,8 +36,8 @@ body {
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
-  transform: translate3d(var(--vv-x, 0px), var(--vv-y, 0px), 0);
-  will-change: transform;
+  transform: none !important;
+  will-change: auto;
 }
 
 @media (max-width: 640px) {
