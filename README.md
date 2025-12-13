@@ -64,23 +64,8 @@ npm start
 - `POST /api/cats` — создать кота (тело JSON, требуется админ)
 - `PUT /api/cats/:id` — обновить кота (тело JSON, требуется админ)
 - `DELETE /api/cats/:id` — удалить кота (требуется админ)
-- `POST /api/upload` — загрузка до 5 фото (поле `photos`) и до 2 видео (поле `videos`), multipart/form-data, требуется админ. Файлы кладутся в `public/uploads/`, путь вида `/uploads/xxx.jpg` или `/uploads/xxx.mp4`.
+- `POST /api/upload` — загрузка до 5 фото (поле `photos`, multipart/form-data, требуется админ). Файлы кладутся в `public/uploads/`, путь вида `/uploads/xxx.jpg`.
 
 Статус кота: `active | reserved | sold`. Порядок вывода на главной: Active → Reserved → Sold.
-
-Структура объекта кота в `cats.json`:
-
-```json
-{
-  "id": "uuid",
-  "name": "string",
-  "age": "string",
-  "price": "string",
-  "description": "string",
-  "status": "active|reserved|sold",
-  "photos": ["/uploads/photo1.jpg"],
-  "videos": ["/uploads/video1.mp4"]
-}
-```
 
 
