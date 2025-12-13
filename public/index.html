@@ -35,7 +35,14 @@
           <a href="#available-cats" class="btn btn-primary">
             View available kittens
           </a>
-          <a href="#contact" class="btn btn-ghost"> Contact us </a>
+          <a
+            href="https://wa.me/971556503070"
+            class="btn btn-wa"
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp
+          </a>
         </div>
         <div class="hero-bottom-note">
           <span class="dot"></span>
@@ -136,22 +143,17 @@
           </div>
           <div class="contact-grid">
             <div class="contact-info">
-              <div class="contact-item">
-                <span class="contact-label">Email</span>
-                <a href="mailto:sphynx@example.com" class="contact-value"
-                  >sphynx@example.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Phone / WhatsApp</span>
-                <a href="tel:+971500000000" class="contact-value"
-                  >+971 50 000 00 00</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Location</span>
-                <span class="contact-value">Dubai, UAE</span>
-              </div>
+              <button
+                class="btn btn-wa contact-wa-btn"
+                type="button"
+                onclick="window.open('https://wa.me/971556503070','_blank')"
+              >
+                WhatsApp
+              </button>
+              <p class="contact-value contact-wa-hint">
+                We answer the fastest in WhatsApp. Tap the button and send us a
+                short message about the kitten you are looking for.
+              </p>
             </div>
             <div class="contact-note">
               <p>
