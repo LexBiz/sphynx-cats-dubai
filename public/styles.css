@@ -21,12 +21,12 @@ body {
   overflow-x: hidden;
 }
 
-.tabby-fixed {
+.tabby-float {
   position: fixed;
-  top: 8px;
-  left: 12px;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  left: calc(env(safe-area-inset-left, 0px) + 12px);
   z-index: 60;
-  font-size: 30px;
+  font-size: clamp(20px, 4vw, 36px);
   font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -34,13 +34,17 @@ body {
   text-shadow: 0 0 16px rgba(255, 23, 68, 0.85),
     0 0 32px rgba(255, 82, 82, 0.95);
   pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 @media (max-width: 640px) {
-  .tabby-fixed {
+  .tabby-float {
+    top: calc(env(safe-area-inset-top, 0px) + 54px);
+    left: calc(env(safe-area-inset-left, 0px) + 10px);
     font-size: 22px;
-    top: 10px;
-    left: 10px;
   }
 }
 
