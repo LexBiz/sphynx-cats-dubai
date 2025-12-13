@@ -170,6 +170,36 @@ body {
   gap: 12px;
 }
 
+.tabby-banner {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle at 0 0, #2a1a1a, #050910);
+  box-shadow: 0 0 0 1px rgba(255, 94, 94, 0.25),
+    0 0 30px rgba(255, 94, 94, 0.55);
+}
+
+.tabby-main {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #ffebee;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff1744, #ff6f00);
+  box-shadow: 0 0 16px rgba(255, 82, 82, 0.8);
+}
+
+.tabby-sub {
+  font-size: 11px;
+  color: #ffdede;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -598,6 +628,18 @@ body {
   color: #c2d8ff;
 }
 
+.cat-tabby-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffebee;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c62828, #ff1744);
+  box-shadow: 0 0 14px rgba(244, 67, 54, 0.8);
+}
+
 .cat-status-dot {
   display: inline-block;
   width: 8px;
@@ -741,6 +783,16 @@ body {
 .contact-note-accent {
   margin-top: 8px;
   color: #f8e4b2;
+}
+
+.cat-wa-btn {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+.cat-modal-wa-btn {
+  margin-top: 8px;
+  align-self: flex-start;
 }
 
 .section-philosophy {

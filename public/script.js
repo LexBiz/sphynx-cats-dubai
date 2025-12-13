@@ -115,9 +115,24 @@ function createCatCard(cat) {
 
   metaRow.appendChild(statusMeta);
 
+  const tabbyEl = document.createElement('span');
+  tabbyEl.className = 'cat-tabby-label';
+  tabbyEl.textContent = 'TABBY';
+  metaRow.appendChild(tabbyEl);
+
   body.appendChild(topRow);
   body.appendChild(descEl);
   body.appendChild(metaRow);
+
+  if (status === 'active') {
+    const waBtn = document.createElement('a');
+    waBtn.href = 'https://wa.me/971556503070';
+    waBtn.target = '_blank';
+    waBtn.rel = 'noreferrer';
+    waBtn.className = 'btn btn-wa cat-wa-btn';
+    waBtn.textContent = 'WhatsApp';
+    body.appendChild(waBtn);
+  }
 
   inner.appendChild(photoWrapper);
   inner.appendChild(body);
@@ -247,6 +262,18 @@ function openCatModal(cat) {
       video.controls = true;
       video.playsInline = true;
       catModalVideo.appendChild(video);
+    }
+  }
+
+  const waBtn = document.getElementById('catModalWa');
+  if (waBtn) {
+    if (status === 'active') {
+      waBtn.style.display = 'inline-flex';
+      waBtn.onclick = () =>
+        window.open('https://wa.me/971556503070', '_blank', 'noreferrer');
+    } else {
+      waBtn.style.display = 'none';
+      waBtn.onclick = null;
     }
   }
 
