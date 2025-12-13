@@ -613,7 +613,35 @@ function initYear() {
   }
 }
 
+function initVisualViewportPin() {
+  const root = document.documentElement;
+
+  const update = () => {
+    const vv = window.visualViewport;
+    if (!vv) {
+      root.style.setProperty('--vv-x', '0px');
+      root.style.setProperty('--vv-y', '0px');
+      return;
+    }
+    const x = vv.offsetLeft || 0;
+    const y = vv.offsetTop || 0;
+    root.style.setProperty('--vv-x', `${x}px`);
+    root.style.setProperty('--vv-y', `${y}px`);
+  };
+
+  update();
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', update, { passive: true });
+    window.visualViewport.addEventListener('scroll', update, { passive: true });
+  }
+
+  window.addEventListener('orientationchange', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initVisualViewportPin();
   initYear();
   initCatModal();
   applyTranslations();
