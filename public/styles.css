@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+html {
+  overflow-x: clip;
+}
+
 html,
 body {
   height: 100%;
@@ -18,7 +22,6 @@ body {
   background: #020817;
   -webkit-font-smoothing: antialiased;
   position: relative;
-  overflow-x: hidden;
 }
 
 .tabby-float {
