@@ -25,12 +25,15 @@ body {
 }
 
 .top-bar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 80;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 24px 12px;
-  background: rgba(2, 8, 23, 0.95);
+  background: rgba(2, 8, 23, 0.96);
   backdrop-filter: blur(14px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 640px) {
@@ -43,9 +46,8 @@ body {
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  gap: 20px;
 }
 
 .tabby-logo {
@@ -186,11 +188,17 @@ body {
   position: relative;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 32px 20px 32px;
+  padding: 96px 20px 32px;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 32px;
   align-items: center;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 84px;
+  }
 }
 
 .hero-inner {
