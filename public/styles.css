@@ -78,9 +78,17 @@ body {
 }
 
 @media (max-width: 640px) {
+  .top-bar-inner {
+    gap: 10px;
+  }
+
   .tabby-fixed-logo {
-    font-size: 24px;
-    letter-spacing: 0.18em;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+  }
+
+  .lang-label {
+    display: none;
   }
 }
 
