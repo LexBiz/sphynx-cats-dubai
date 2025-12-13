@@ -613,7 +613,36 @@ function initYear() {
   }
 }
 
+function createTabbyLabel() {
+  // Create TABBY via JS with pure inline styles to avoid any CSS conflicts
+  const tabby = document.createElement('div');
+  tabby.setAttribute('aria-hidden', 'true');
+  tabby.textContent = 'TABBY';
+  
+  // Apply styles directly via style property (highest priority)
+  const isMobile = window.innerWidth <= 640;
+  Object.assign(tabby.style, {
+    position: 'fixed',
+    top: isMobile ? '54px' : '10px',
+    left: isMobile ? '10px' : '12px',
+    zIndex: '9999',
+    fontSize: isMobile ? '22px' : '36px',
+    fontWeight: '900',
+    letterSpacing: '0.18em',
+    textTransform: 'uppercase',
+    color: '#ff1744',
+    textShadow: '0 0 16px rgba(255,23,68,0.85), 0 0 32px rgba(255,82,82,0.95)',
+    pointerEvents: 'none',
+    userSelect: 'none',
+    whiteSpace: 'nowrap',
+    fontFamily: 'Poppins, sans-serif',
+  });
+  
+  document.body.appendChild(tabby);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  createTabbyLabel();
   initYear();
   initCatModal();
   applyTranslations();
