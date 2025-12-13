@@ -24,12 +24,45 @@ body {
   position: relative;
 }
 
-.tabby-float {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 10px);
-  left: calc(env(safe-area-inset-left, 0px) + 12px);
-  z-index: 60;
-  font-size: clamp(20px, 4vw, 36px);
+.lang-bar {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 20px 10px;
+  background: rgba(2, 8, 23, 0.55);
+  backdrop-filter: blur(14px);
+}
+
+.lang-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 0 0, #071223, #020817);
+  border: 1px solid rgba(80, 130, 190, 0.8);
+  box-shadow: 0 10px 30px rgba(1, 5, 16, 0.8);
+}
+
+@media (max-width: 640px) {
+  .lang-inner {
+    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .tabby-logo {
+    font-size: 22px;
+    letter-spacing: 0.14em;
+  }
+
+  .lang-right {
+    gap: 8px;
+  }
+}
+
+.tabby-logo {
+  font-size: clamp(22px, 4vw, 36px);
   font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -39,36 +72,12 @@ body {
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
-  transform: none !important;
-  will-change: auto;
 }
 
-@media (max-width: 640px) {
-  .tabby-float {
-    top: calc(env(safe-area-inset-top, 0px) + 54px);
-    left: calc(env(safe-area-inset-left, 0px) + 10px);
-    font-size: 22px;
-  }
-}
-
-.lang-bar {
-  position: relative;
-  z-index: 5;
-  padding: 10px 20px 0;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-.lang-inner {
+.lang-right {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 0 0, #071223, #020817);
-  border: 1px solid rgba(80, 130, 190, 0.8);
-  box-shadow: 0 10px 30px rgba(1, 5, 16, 0.8);
 }
 
 .lang-label {
