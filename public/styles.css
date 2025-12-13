@@ -62,10 +62,26 @@ body {
   white-space: nowrap;
 }
 
+.tabby-center {
+  text-align: center;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ff1744;
+  text-shadow: 0 4px 16px rgba(255, 23, 68, 0.7),
+    0 8px 32px rgba(255, 82, 82, 0.9);
+  padding: 32px 20px 0;
+  margin: 0 auto;
+  max-width: 1120px;
+  pointer-events: none;
+  user-select: none;
+}
+
 @media (max-width: 640px) {
-  .tabby-logo {
-    font-size: 22px;
-    letter-spacing: 0.16em;
+  .tabby-center {
+    font-size: 36px;
+    padding: 24px 16px 0;
   }
 }
 
