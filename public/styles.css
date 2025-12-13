@@ -21,6 +21,29 @@ body {
   overflow-x: hidden;
 }
 
+.tabby-corner {
+  position: fixed;
+  top: 10px;
+  left: 18px;
+  z-index: 50;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ff1744;
+  text-shadow: 0 0 18px rgba(255, 23, 68, 0.8),
+    0 0 36px rgba(255, 82, 82, 0.9);
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .tabby-corner {
+    font-size: 26px;
+    top: 6px;
+    left: 12px;
+  }
+}
+
 .lang-bar {
   position: relative;
   z-index: 5;
@@ -258,6 +281,21 @@ body {
 .tabby-sub {
   font-size: 11px;
   color: #ffdede;
+}
+
+.cat-modal-tabby {
+  margin-top: 10px;
+  margin-bottom: 4px;
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ffebee;
+  background: linear-gradient(135deg, #c62828, #ff1744);
+  box-shadow: 0 0 22px rgba(244, 67, 54, 0.95);
 }
 
 .btn {

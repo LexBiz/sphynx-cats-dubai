@@ -80,6 +80,10 @@ const I18N = {
     lang: {
       label: 'Language',
     },
+    tabby: {
+      main: 'WE ACCEPT TABBY',
+      sub: 'Split your payment safely and instantly',
+    },
   },
   ru: {
     hero: {
@@ -151,6 +155,10 @@ const I18N = {
     lang: {
       label: 'Язык',
     },
+    tabby: {
+      main: 'ОПЛАТА ЧЕРЕЗ TABBY',
+      sub: 'Покупайте сейчас, платите частями безопасно и сразу.',
+    },
   },
   ar: {
     hero: {
@@ -221,6 +229,10 @@ const I18N = {
     },
     lang: {
       label: 'اللغة',
+    },
+    tabby: {
+      main: 'ندعم Tabby',
+      sub: 'ادفع على أقساط آمنة وسريعة مع Tabby.',
     },
   },
 };
@@ -501,14 +513,9 @@ function openCatModal(cat) {
   // Кнопка WhatsApp в модалке только для активных котов
   const waBtn = document.getElementById('catModalWa');
   if (waBtn) {
-    if (status === 'active') {
-      waBtn.style.display = 'inline-flex';
-      waBtn.onclick = () =>
-        window.open('https://wa.me/971556503070', '_blank', 'noreferrer');
-    } else {
-      waBtn.style.display = 'none';
-      waBtn.onclick = null;
-    }
+    waBtn.style.display = 'inline-flex';
+    waBtn.onclick = () =>
+      window.open('https://wa.me/971556503070', '_blank', 'noreferrer');
   }
 
   catModal.classList.remove('hidden');
