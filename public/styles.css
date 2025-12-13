@@ -24,25 +24,40 @@ body {
   position: relative;
 }
 
+:root {
+  /* Floating top controls sizing (stable on iOS Safari + safe-area) */
+  --floating-header-pt: calc(env(safe-area-inset-top, 0px) + 10px);
+  --floating-header-h: 56px;
+  --hero-pt: calc(var(--floating-header-pt) + var(--floating-header-h) + 40px);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --floating-header-h: 48px;
+    --hero-pt: calc(var(--floating-header-pt) + var(--floating-header-h) + 32px);
+  }
+}
+
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 90;
-  padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px;
-  background: rgba(2, 8, 23, 0.92);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
+  padding: var(--floating-header-pt) 16px 10px;
+  /* floating controls (no full-width header bar) */
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .site-header-inner {
   max-width: 1120px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  position: relative;
+  height: var(--floating-header-h);
+  pointer-events: none;
 }
 
 .site-brand {
@@ -54,6 +69,11 @@ body {
   line-height: 1;
   user-select: none;
   white-space: nowrap;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
 }
 
 @media (max-width: 640px) {
@@ -66,17 +86,6 @@ body {
   }
 }
 
-/* push content below fixed header */
-.hero {
-  padding-top: 96px;
-}
-
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 86px;
-  }
-}
-
 .lang-group {
   display: flex;
   align-items: center;
@@ -86,6 +95,11 @@ body {
   background: radial-gradient(circle at 0 0, #071223, #020817);
   border: 1px solid rgba(80, 130, 190, 0.8);
   box-shadow: 0 8px 20px rgba(1, 5, 16, 0.7);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
 }
 
 @media (max-width: 640px) {
@@ -94,6 +108,8 @@ body {
     padding: 5px 10px;
   }
 }
+
+/* Keep Tabby left / languages right on all breakpoints (like the screenshot) */
 
 .lang-label {
   font-size: 11px;
@@ -196,17 +212,11 @@ body {
   position: relative;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 96px 20px 32px;
+  padding: var(--hero-pt) 20px 32px;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 32px;
   align-items: center;
-}
-
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 84px;
-  }
 }
 
 .hero-inner {
@@ -1161,7 +1171,6 @@ body {
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
-    padding-top: 22px;
   }
 
   .hero-visual {
