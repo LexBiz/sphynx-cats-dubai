@@ -151,11 +151,10 @@ function clearForm() {
 }
 
 function fillForm(cat) {
-  const form = document.getElementById('catForm');
   const formTitle = document.getElementById('formTitle');
   const deleteBtn = document.getElementById('deleteBtn');
   const preview = document.getElementById('photoPreview');
-  if (!form || !formTitle || !deleteBtn || !preview) return;
+  if (!formTitle || !deleteBtn || !preview) return;
 
   document.getElementById('catId').value = cat.id || '';
   document.getElementById('name').value = cat.name || '';
@@ -180,29 +179,29 @@ function fillForm(cat) {
       preview.appendChild(div);
     });
   }
-
-  // На телефонах переносим фокус к форме, чтобы было видно, что кот выбран
-  try {
-    setTimeout(() => {
-      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  } catch (_) {
-    // ignore
-  }
 }
 
 async function uploadMedia(photoFiles, videoFiles) {
-  if ((!photoFiles || photoFiles.length === 0) && (!videoFiles || videoFiles.length === 0)) {
+  const havePhotos = photoFiles && photoFiles.length > 0;
+  const haveVideos = videoFiles && videoFiles.length > 0;
+
+  if (!havePhotos && !haveVideos) {
     return { photos: [], videos: [] };
   }
 
   const formData = new FormData();
-  Array.from(photoFiles || [])
-    .slice(0, 5)
-    .forEach((file) => formData.append('photos', file));
-  Array.from(videoFiles || [])
-    .slice(0, 2)
-    .forEach((file) => formData.append('videos', file));
+
+  if (havePhotos) {
+    Array.from(photoFiles)
+      .slice(0, 5)
+      .forEach((file) => formData.append('photos', file));
+  }
+
+  if (haveVideos) {
+    Array.from(videoFiles)
+      .slice(0, 2)
+      .forEach((file) => formData.append('videos', file));
+  }
 
   const res = await apiFetch('/api/upload', {
     method: 'POST',
@@ -248,20 +247,21 @@ async function saveCat() {
   };
 
   try {
-    let uploadedPhotos = [];
-    let uploadedVideos = [];
-    if (
-      (photosInput.files && photosInput.files.length > 0) ||
-      (videosInput && videosInput.files && videosInput.files.length > 0)
-    ) {
-      const media = await uploadMedia(photosInput.files, videosInput ? videosInput.files : null);
-      uploadedPhotos = media.photos;
-      uploadedVideos = media.videos;
-      if (uploadedPhotos.length) {
-        payload.photos = uploadedPhotos;
+    const havePhotos = photosInput.files && photosInput.files.length > 0;
+    const haveVideos =
+      videosInput && videosInput.files && videosInput.files.length > 0;
+
+    if (havePhotos || haveVideos) {
+      const media = await uploadMedia(
+        havePhotos ? photosInput.files : null,
+        haveVideos ? videosInput.files : null
+      );
+
+      if (media.photos.length) {
+        payload.photos = media.photos;
       }
-      if (uploadedVideos.length) {
-        payload.videos = uploadedVideos;
+      if (media.videos.length) {
+        payload.videos = media.videos;
       }
     }
 
@@ -284,7 +284,9 @@ async function saveCat() {
     await res.json();
     msg.textContent = 'Успішно збережено.';
     photosInput.value = '';
-    if (videosInput) videosInput.value = '';
+    if (videosInput) {
+      videosInput.value = '';
+    }
     await loadCats();
   } catch (err) {
     console.error(err);

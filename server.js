@@ -55,7 +55,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    // Allow up to ~50MB per file to be безопасно загружать видео
+    // до ~50МБ на файл, чтобы можно было загружать короткие видео
     fileSize: 50 * 1024 * 1024,
   },
 });
@@ -111,7 +111,8 @@ function requireAdmin(req, res, next) {
 
 // API: Create cat
 app.post('/api/cats', requireAdmin, (req, res) => {
-  const { name, age, price, description, status, photos, videos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } =
+    req.body || {};
 
   if (!name || !age || !price || !description) {
     return res.status(400).json({ message: 'Missing required fields' });
@@ -144,7 +145,8 @@ app.post('/api/cats', requireAdmin, (req, res) => {
 // API: Update cat
 app.put('/api/cats/:id', requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { name, age, price, description, status, photos, videos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } =
+    req.body || {};
 
   const cats = readCats();
   const index = cats.findIndex((c) => c.id === id);
