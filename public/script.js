@@ -392,8 +392,8 @@ let catModal;
 let catModalOverlay;
 let catModalCloseBtn;
 let catModalMainPhoto;
+let catModalMainVideo;
 let catModalThumbs;
-let catModalVideo;
 let catModalName;
 let catModalStatus;
 let catModalAge;
@@ -407,8 +407,8 @@ function initCatModal() {
   catModalOverlay = catModal.querySelector('.cat-modal-overlay');
   catModalCloseBtn = document.getElementById('catModalClose');
   catModalMainPhoto = document.getElementById('catModalMainPhoto');
+  catModalMainVideo = document.getElementById('catModalMainVideo');
   catModalThumbs = document.getElementById('catModalThumbs');
-  catModalVideo = document.getElementById('catModalVideo');
   catModalName = document.getElementById('catModalName');
   catModalStatus = document.getElementById('catModalStatus');
   catModalAge = document.getElementById('catModalAge');
@@ -473,8 +473,49 @@ function openCatModal(cat) {
     catModalMainPhoto.alt = cat.name || 'Sphynx cat';
   }
 
+  if (catModalMainVideo) {
+    catModalMainVideo.pause?.();
+    catModalMainVideo.removeAttribute('src');
+    catModalMainVideo.load?.();
+    catModalMainVideo.style.display = 'none';
+  }
+  if (catModalMainPhoto) {
+    catModalMainPhoto.style.display = 'block';
+  }
+
   if (catModalThumbs) {
     catModalThumbs.innerHTML = '';
+    const setActive = (btn) => {
+      Array.from(catModalThumbs.querySelectorAll('.cat-modal-thumb')).forEach(
+        (el) => el.classList.remove('active')
+      );
+      btn.classList.add('active');
+    };
+
+    const showPhoto = (src) => {
+      if (catModalMainVideo) {
+        catModalMainVideo.pause?.();
+        catModalMainVideo.removeAttribute('src');
+        catModalMainVideo.load?.();
+        catModalMainVideo.style.display = 'none';
+      }
+      if (catModalMainPhoto) {
+        catModalMainPhoto.style.display = 'block';
+        catModalMainPhoto.src = src;
+      }
+    };
+
+    const showVideo = (src) => {
+      if (catModalMainPhoto) {
+        catModalMainPhoto.style.display = 'none';
+      }
+      if (catModalMainVideo) {
+        catModalMainVideo.style.display = 'block';
+        catModalMainVideo.src = src;
+        catModalMainVideo.load?.();
+      }
+    };
+
     photos.forEach((src, index) => {
       const thumb = document.createElement('button');
       thumb.type = 'button';
@@ -486,28 +527,24 @@ function openCatModal(cat) {
       img.loading = 'lazy';
       thumb.appendChild(img);
       thumb.addEventListener('click', () => {
-        if (catModalMainPhoto) {
-          catModalMainPhoto.src = src;
-        }
-        Array.from(
-          catModalThumbs.querySelectorAll('.cat-modal-thumb')
-        ).forEach((el) => el.classList.remove('active'));
-        thumb.classList.add('active');
+        showPhoto(src);
+        setActive(thumb);
       });
       catModalThumbs.appendChild(thumb);
     });
-  }
 
-  if (catModalVideo) {
-    catModalVideo.innerHTML = '';
-    if (videos.length > 0) {
-      const video = document.createElement('video');
-      video.className = 'cat-modal-video-player';
-      video.src = videos[0];
-      video.controls = true;
-      video.playsInline = true;
-      catModalVideo.appendChild(video);
-    }
+    videos.forEach((src, idx) => {
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'cat-modal-thumb cat-modal-thumb-video';
+      thumb.setAttribute('aria-label', `Video ${idx + 1}`);
+      thumb.innerHTML = '<span class="cat-modal-video-icon">▶</span>';
+      thumb.addEventListener('click', () => {
+        showVideo(src);
+        setActive(thumb);
+      });
+      catModalThumbs.appendChild(thumb);
+    });
   }
 
   // Кнопка WhatsApp в модалке только для активных котов
@@ -524,6 +561,17 @@ function openCatModal(cat) {
 
 function closeCatModal() {
   if (!catModal) return;
+
+  if (catModalMainVideo) {
+    catModalMainVideo.pause?.();
+    catModalMainVideo.removeAttribute('src');
+    catModalMainVideo.load?.();
+    catModalMainVideo.style.display = 'none';
+  }
+  if (catModalMainPhoto) {
+    catModalMainPhoto.style.display = 'block';
+  }
+
   catModal.classList.add('hidden');
   catModal.setAttribute('aria-hidden', 'true');
 }

@@ -1102,6 +1102,13 @@ body {
   display: block;
 }
 
+.cat-modal-main-video {
+  width: 100%;
+  max-height: 420px;
+  display: none;
+  background: #000;
+}
+
 .cat-modal-thumbs {
   display: flex;
   flex-wrap: wrap;
@@ -1125,6 +1132,34 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.cat-modal-thumb-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(58, 215, 217, 0.35), rgba(212, 175, 55, 0.35)),
+    rgba(6, 18, 40, 0.95);
+}
+
+.cat-modal-video-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  color: #020817;
+  font-size: 14px;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+}
+
+.cat-modal-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
 }
 
 .cat-modal-thumb.active {
