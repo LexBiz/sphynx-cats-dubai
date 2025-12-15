@@ -69,7 +69,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css?v=18" />
+    <link rel="stylesheet" href="/styles.css?v=19" />
   </head>
   <body>
     <div class="page-bg"></div>
@@ -77,9 +77,7 @@
 
     <div class="site-header" role="banner">
       <div class="site-header-inner">
-        <div class="site-brand" aria-label="Tabby">
-          <img class="site-brand-logo" src="/tabby-logo.svg" alt="Tabby" />
-        </div>
+        <div class="site-brand" aria-hidden="true">Tabby</div>
         <div class="lang-group">
           <span class="lang-label" data-i18n="lang.label">Language</span>
           <div id="langSwitcher" class="lang-switcher" aria-label="Language">
@@ -105,7 +103,14 @@
           <a href="#available-cats" class="btn btn-primary">
             <span data-i18n="hero.ctaPrimary">View available kittens</span>
           </a>
-          <a href="#contact" class="btn btn-ghost"> Contact us </a>
+          <a
+            href="https://wa.me/971556503070"
+            class="btn btn-wa"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span data-i18n="contact.whButton">Write in WhatsApp</span>
+          </a>
         </div>
         <div class="hero-bottom-note">
           <span class="dot"></span>
@@ -132,39 +137,39 @@
     <main>
       <section id="about" class="section section-about">
         <div class="section-header">
-          <h2>Sphynx Cats & Kittens in Dubai (UAE)</h2>
-          <p>
+          <h2 data-i18n="about.title">Sphynx Cats & Kittens in Dubai (UAE)</h2>
+          <p data-i18n="about.text">
             Boutique cattery in Dubai, UAE, focused on healthy, well-socialized
             sphynx kittens with exceptional temperament and type.
           </p>
         </div>
         <div class="about-grid">
           <div class="about-card">
-            <h3>Family raised</h3>
-            <p>
+            <h3 data-i18n="about.familyTitle">Family raised</h3>
+            <p data-i18n="about.familyText">
               All kittens grow in our home, not in cages. They live with us as
               family members and are used to children, guests and everyday
               sounds.
             </p>
           </div>
           <div class="about-card">
-            <h3>Health & guarantee</h3>
-            <p>
+            <h3 data-i18n="about.healthTitle">Health & guarantee</h3>
+            <p data-i18n="about.healthText">
               Each kitten receives full veterinary care, vaccinations,
               deworming, and a health book. We provide a clear contract and
               support.
             </p>
           </div>
           <div class="about-card">
-            <h3>Vet supervised</h3>
-            <p>
+            <h3 data-i18n="about.vetTitle">Vet supervised</h3>
+            <p data-i18n="about.vetText">
               Our breeding program is built around regular vet checks and
               responsible pairing to support strong immunity and longevity.
             </p>
           </div>
           <div class="about-card">
-            <h3>Lifetime support</h3>
-            <p>
+            <h3 data-i18n="about.supportTitle">Lifetime support</h3>
+            <p data-i18n="about.supportText">
               We stay in touch after you take your sphynx home and are ready to
               help with care, nutrition and adaptation in a new country.
             </p>
@@ -204,30 +209,30 @@
 
       <section id="philosophy" class="section section-philosophy">
         <div class="section-header">
-          <h2>Our breeding philosophy</h2>
-          <p>
+          <h2 data-i18n="philosophy.title">Our breeding philosophy</h2>
+          <p data-i18n="philosophy.text">
             We breed for health, character and harmony of the sphynx type, not
             for quantity. Each litter is planned and limited.
           </p>
         </div>
         <div class="philosophy-grid">
           <div class="philosophy-card">
-            <h3>Genetic care</h3>
-            <p>
+            <h3 data-i18n="philosophy.geneticTitle">Genetic care</h3>
+            <p data-i18n="philosophy.geneticText">
               Breeding cats are carefully selected and checked to help avoid
               hereditary issues and support strong, healthy kittens.
             </p>
           </div>
           <div class="philosophy-card">
-            <h3>Home environment</h3>
-            <p>
+            <h3 data-i18n="philosophy.homeTitle">Home environment</h3>
+            <p data-i18n="philosophy.homeText">
               Kittens live in a clean, calm home environment with climbing
               trees, toys and constant human contact from the first weeks.
             </p>
           </div>
           <div class="philosophy-card">
-            <h3>Preparation for travel</h3>
-            <p>
+            <h3 data-i18n="philosophy.travelTitle">Preparation for travel</h3>
+            <p data-i18n="philosophy.travelText">
               We help with export documents, microchips and travel carriers, so
               your sphynx can safely arrive anywhere in the world.
             </p>
@@ -238,14 +243,27 @@
       <section id="contact" class="section section-contact">
         <div class="contact-card">
           <div class="contact-header">
-            <h2>Contact & Reservations</h2>
-            <p>
+            <h2 data-i18n="contact.title">Contact & Reservations</h2>
+            <p data-i18n="contact.text">
               Tell us about your ideal sphynx kitten — we will help you choose
               the perfect match.
             </p>
           </div>
           <div class="contact-grid">
             <div class="contact-info">
+              <button
+                class="btn btn-wa contact-wa-btn"
+                type="button"
+                onclick="window.open('https://wa.me/971556503070','_blank')"
+              >
+                <span data-i18n="contact.whButton">Write in WhatsApp</span>
+              </button>
+              <p class="contact-value contact-wa-hint">
+                <span data-i18n="contact.whHint">
+                  We answer the fastest in WhatsApp. Tap the button and send us
+                  a short message about the kitten you are looking for.
+                </span>
+              </p>
               <div class="contact-item">
                 <span class="contact-label">Email</span>
                 <a href="mailto:info@sphynxdubai.ae" class="contact-value"
@@ -268,7 +286,7 @@
                 We provide detailed photo & video reports, health documents and
                 support with international transportation if needed.
               </p>
-              <p class="contact-note-accent">
+              <p class="contact-note-accent" data-i18n="contact.noteAccent">
                 For quick response, please send us a message on WhatsApp or
                 email with your name and preferred kitten type.
               </p>
@@ -280,9 +298,12 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        <span>© <span id="year"></span> Premium Sphynx Dubai</span>
+        <span>
+          © <span id="year"></span>
+          <span data-i18n="footer.brand">Premium Sphynx Dubai</span>
+        </span>
         <span class="footer-separator">•</span>
-        <span>Exclusive sphynx kittens • Boutique cattery</span>
+        <span data-i18n="footer.tagline">Exclusive sphynx kittens • Boutique cattery</span>
       </div>
     </footer>
 
@@ -308,6 +329,7 @@
               />
             </div>
             <div id="catModalThumbs" class="cat-modal-thumbs"></div>
+            <div id="catModalVideo" class="cat-modal-video"></div>
           </div>
           <div class="cat-modal-details">
             <div class="cat-modal-header">
@@ -321,6 +343,13 @@
               <span id="catModalAge" class="cat-modal-meta-item"></span>
               <span id="catModalPrice" class="cat-modal-meta-item"></span>
             </div>
+            <button
+              id="catModalWa"
+              class="btn btn-wa cat-modal-wa-btn"
+              type="button"
+            >
+              <span data-i18n="contact.whButton">Write in WhatsApp</span>
+            </button>
             <p id="catModalDescription" class="cat-modal-description"></p>
           </div>
         </div>
