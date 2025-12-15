@@ -17,7 +17,6 @@ body {
   color: #f7fbff;
   background: #020817;
   -webkit-font-smoothing: antialiased;
-  overflow-x: auto;
 }
 
 .admin-page-bg {
@@ -35,7 +34,6 @@ body {
   max-width: 1180px;
   margin: 0 auto;
   padding: 16px 20px 32px;
-  overflow-x: auto;
 }
 
 .admin-header {

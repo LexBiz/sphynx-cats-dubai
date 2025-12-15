@@ -12,6 +12,31 @@ const MAX_VIDEO_FILES = 2;
 const MAX_VIDEO_MB = 200;
 const MAX_PHOTO_MB = 20;
 
+function setFormMessage(message) {
+  const msg = document.getElementById('formMessage');
+  if (!msg) return;
+  msg.textContent = message || '';
+  if (message) {
+    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function setFormBusy(isBusy, message) {
+  const form = document.getElementById('catForm');
+  if (!form) return;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const inputs = form.querySelectorAll('input, select, textarea, button');
+  inputs.forEach((el) => {
+    if (el === submitBtn) return;
+    el.disabled = Boolean(isBusy);
+  });
+  if (submitBtn) {
+    submitBtn.disabled = Boolean(isBusy);
+    submitBtn.textContent = isBusy ? 'Завантаження…' : 'Зберегти кота';
+  }
+  if (typeof message === 'string') setFormMessage(message);
+}
+
 function validateSelectedFiles(photoFiles, videoFiles) {
   const errors = [];
 
@@ -279,12 +304,16 @@ async function saveCat() {
   const description = document.getElementById('description').value.trim();
   const photosInput = document.getElementById('photos');
   const videosInput = document.getElementById('videos');
-  const msg = document.getElementById('formMessage');
 
-  msg.textContent = '';
+  setFormMessage('');
 
   if (!name || !age || !price) {
-    msg.textContent = 'Заповніть обовʼязкові поля: імʼя, вік, ціна.';
+    setFormMessage('Заповніть обовʼязкові поля: імʼя, вік, ціна.');
+    return;
+  }
+  // server.js requires description (empty string treated as missing)
+  if (!description) {
+    setFormMessage('Опис є обовʼязковим полем.');
     return;
   }
 
@@ -297,27 +326,25 @@ async function saveCat() {
   };
 
   try {
-    const havePhotos = photosInput.files && photosInput.files.length > 0;
-    const haveVideos =
-      videosInput && videosInput.files && videosInput.files.length > 0;
+    setFormBusy(true, 'Підготовка…');
+
+    const havePhotos = photosInput && photosInput.files && photosInput.files.length > 0;
+    const haveVideos = videosInput && videosInput.files && videosInput.files.length > 0;
 
     if (havePhotos || haveVideos) {
+      setFormMessage('Завантаження файлів… (це може зайняти 10–60 сек)');
       const media = await uploadMedia(
         havePhotos ? photosInput.files : null,
         haveVideos ? videosInput.files : null
       );
-
-      if (media.photos.length) {
-        payload.photos = media.photos;
-      }
-      if (media.videos.length) {
-        payload.videos = media.videos;
-      }
+      if (media.photos.length) payload.photos = media.photos;
+      if (media.videos.length) payload.videos = media.videos;
     }
 
     const method = id ? 'PUT' : 'POST';
     const endpoint = id ? `/api/cats/${encodeURIComponent(id)}` : '/api/cats';
 
+    setFormMessage('Збереження…');
     const res = await apiFetch(endpoint, {
       method,
       headers: {
@@ -332,15 +359,15 @@ async function saveCat() {
     }
 
     await res.json();
-    msg.textContent = 'Успішно збережено.';
+    setFormMessage('Успішно збережено.');
     photosInput.value = '';
-    if (videosInput) {
-      videosInput.value = '';
-    }
+    if (videosInput) videosInput.value = '';
     await loadCats();
   } catch (err) {
     console.error(err);
-    msg.textContent = err.message || 'Помилка під час збереження кота.';
+    setFormMessage(err.message || 'Помилка під час збереження кота.');
+  } finally {
+    setFormBusy(false);
   }
 }
 
