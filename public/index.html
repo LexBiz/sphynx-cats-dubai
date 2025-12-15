@@ -69,29 +69,49 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css?v=16" />
+    <link rel="stylesheet" href="/styles.css?v=18" />
   </head>
   <body>
     <div class="page-bg"></div>
     <div class="page-bg-overlay"></div>
 
+    <div class="site-header" role="banner">
+      <div class="site-header-inner">
+        <div class="site-brand" aria-label="Tabby">
+          <img class="site-brand-logo" src="/tabby-logo.svg" alt="Tabby" />
+        </div>
+        <div class="lang-group">
+          <span class="lang-label" data-i18n="lang.label">Language</span>
+          <div id="langSwitcher" class="lang-switcher" aria-label="Language">
+            <button type="button" class="lang-btn lang-active" data-lang="en">
+              EN
+            </button>
+            <button type="button" class="lang-btn" data-lang="ru">RU</button>
+            <button type="button" class="lang-btn" data-lang="ar">AR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <header class="hero">
       <div class="hero-inner">
-        <div class="hero-badge">Dubai • Exclusive cattery</div>
-        <h1 class="hero-title">Premium Sphynx Cats for Sale</h1>
-        <p class="hero-subtitle">
+        <div class="hero-badge" data-i18n="hero.badge">Dubai • Exclusive cattery</div>
+        <h1 class="hero-title" data-i18n="hero.title">Premium Sphynx Cats for Sale</h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
           Healthy, friendly and stunning sphynx kittens with perfect
           temperament and premium care.
         </p>
         <div class="hero-cta-row">
           <a href="#available-cats" class="btn btn-primary">
-            View available kittens
+            <span data-i18n="hero.ctaPrimary">View available kittens</span>
           </a>
           <a href="#contact" class="btn btn-ghost"> Contact us </a>
         </div>
         <div class="hero-bottom-note">
           <span class="dot"></span>
-          Small exclusive litters • Worldwide assistance
+          <span data-i18n="hero.note">
+            Small exclusive litters • Worldwide assistance
+          </span>
         </div>
       </div>
       <div class="hero-visual">
@@ -105,23 +125,6 @@
             loading="eager"
           />
           <div class="hero-glass-gradient"></div>
-          <div class="hero-glass-content">
-            <span class="hero-tagline">Sphynx Elegance</span>
-            <p>
-              Hairless beauty, velvet skin and intelligent character — each
-              kitten is raised with love.
-            </p>
-            <div class="hero-stat-row">
-              <div class="hero-stat">
-                <span class="hero-stat-value">100%</span>
-                <span class="hero-stat-label">Vet Checked</span>
-              </div>
-              <div class="hero-stat">
-                <span class="hero-stat-value">24/7</span>
-                <span class="hero-stat-label">Support</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </header>
@@ -171,8 +174,8 @@
 
       <section id="available-cats" class="section section-cats">
         <div class="section-header">
-          <h2>Available Sphynx Cats</h2>
-          <p>
+          <h2 data-i18n="cats.title">Available Sphynx Cats</h2>
+          <p data-i18n="cats.text">
             All kittens are vaccinated, dewormed and fully socialized. The list
             updates in real time.
           </p>
@@ -180,10 +183,10 @@
 
         <div class="cats-filters">
           <button class="chip chip-active" data-filter="active" type="button">
-            Active
+            <span data-i18n="cats.filterActive">Active</span>
           </button>
           <button class="chip" data-filter="reserved" type="button">
-            Reserved
+            <span data-i18n="cats.filterReserved">Reserved</span>
           </button>
         </div>
 
@@ -192,8 +195,8 @@
         </div>
 
         <div id="cats-empty" class="cats-empty hidden">
-          <p>No kittens are available at the moment.</p>
-          <p class="cats-empty-note">
+          <p data-i18n="cats.emptyTitle">No kittens are available at the moment.</p>
+          <p class="cats-empty-note" data-i18n="cats.emptyNote">
             Contact us to join the waiting list for the next premium litter.
           </p>
         </div>
@@ -324,7 +327,7 @@
       </div>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="/script.js?v=18"></script>
   </body>
   </html>
 
