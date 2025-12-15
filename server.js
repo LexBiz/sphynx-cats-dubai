@@ -10,6 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'change_me_please';
 
+// Canonical host redirect (helps SEO even if nginx routes www to the app)
+app.set('trust proxy', true);
+app.use((req, res, next) => {
+  const host = (req.headers.host || '').split(':')[0].toLowerCase();
+  if (host === 'www.sphynxdubai.ae') {
+    return res.redirect(301, `https://sphynxdubai.ae${req.originalUrl}`);
+  }
+  next();
+});
+
 // Paths
 const publicDir = path.join(__dirname, 'public');
 const adminDir = path.join(__dirname, 'admin');
@@ -55,8 +65,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    // до ~200МБ на файл (видео), фото обычно меньше
-    fileSize: 200 * 1024 * 1024,
+    fileSize: 5 * 1024 * 1024, // 5MB
   },
 });
 
@@ -111,8 +120,7 @@ function requireAdmin(req, res, next) {
 
 // API: Create cat
 app.post('/api/cats', requireAdmin, (req, res) => {
-  const { name, age, price, description, status, photos, videos } =
-    req.body || {};
+  const { name, age, price, description, status, photos } = req.body || {};
 
   if (!name || !age || !price || !description) {
     return res.status(400).json({ message: 'Missing required fields' });
@@ -124,8 +132,6 @@ app.post('/api/cats', requireAdmin, (req, res) => {
     : 'active';
 
   const cats = readCats();
-  const safePhotos = Array.isArray(photos) ? photos.slice(0, 5) : [];
-  const safeVideos = Array.isArray(videos) ? videos.slice(0, 2) : [];
   const newCat = {
     id: uuidv4(),
     name,
@@ -133,8 +139,7 @@ app.post('/api/cats', requireAdmin, (req, res) => {
     price,
     description,
     status: finalStatus,
-    photos: safePhotos,
-    videos: safeVideos,
+    photos: Array.isArray(photos) ? photos.slice(0, 5) : [],
   };
 
   cats.push(newCat);
@@ -145,8 +150,7 @@ app.post('/api/cats', requireAdmin, (req, res) => {
 // API: Update cat
 app.put('/api/cats/:id', requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { name, age, price, description, status, photos, videos } =
-    req.body || {};
+  const { name, age, price, description, status, photos } = req.body || {};
 
   const cats = readCats();
   const index = cats.findIndex((c) => c.id === id);
@@ -160,13 +164,6 @@ app.put('/api/cats/:id', requireAdmin, (req, res) => {
     ? status.toLowerCase()
     : cats[index].status;
 
-  const safePhotos = Array.isArray(photos)
-    ? photos.slice(0, 5)
-    : cats[index].photos || [];
-  const safeVideos = Array.isArray(videos)
-    ? videos.slice(0, 2)
-    : cats[index].videos || [];
-
   cats[index] = {
     ...cats[index],
     name: name ?? cats[index].name,
@@ -174,8 +171,7 @@ app.put('/api/cats/:id', requireAdmin, (req, res) => {
     price: price ?? cats[index].price,
     description: description ?? cats[index].description,
     status: finalStatus,
-    photos: safePhotos,
-    videos: safeVideos,
+    photos: Array.isArray(photos) ? photos.slice(0, 5) : cats[index].photos,
   };
 
   writeCats(cats);
@@ -197,32 +193,17 @@ app.delete('/api/cats/:id', requireAdmin, (req, res) => {
   res.json({ success: true, removedId: removed.id });
 });
 
-// API: Upload media (photos up to 5, videos up to 2)
-app.post('/api/upload', requireAdmin, (req, res) => {
-  upload.fields([
-    { name: 'photos', maxCount: 5 },
-    { name: 'videos', maxCount: 2 },
-  ])(req, res, (err) => {
-    if (err) {
-      if (err.code === 'LIMIT_FILE_SIZE') {
-        return res.status(413).json({
-          message:
-            'Файл слишком большой. Сожмите видео или загрузите файл меньшего размера (до 200MB).',
-        });
-      }
-      return res.status(400).json({
-        message: err.message || 'Upload failed',
-      });
-    }
-
-    const files = req.files || {};
-    const photoFiles = files.photos || [];
-    const videoFiles = files.videos || [];
-    const photos = photoFiles.map((f) => `/uploads/${f.filename}`);
-    const videos = videoFiles.map((f) => `/uploads/${f.filename}`);
-    res.json({ photos, videos });
-  });
-});
+// API: Upload photos (up to 5)
+app.post(
+  '/api/upload',
+  requireAdmin,
+  upload.array('photos', 5),
+  (req, res) => {
+    const files = req.files || [];
+    const filePaths = files.map((f) => `/uploads/${f.filename}`);
+    res.json({ files: filePaths });
+  }
+);
 
 // Fallback routes for SPA-like behavior
 app.get('/admin/*', (req, res) => {
