@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Do not index admin area or APIs
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://sphynxdubai.ae/sitemap.xml
+
