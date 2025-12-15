@@ -65,7 +65,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    // Nginx allows 250m; keep server slightly under / equal
+    fileSize: 250 * 1024 * 1024, // 250MB per file
   },
 });
 
@@ -120,7 +121,7 @@ function requireAdmin(req, res, next) {
 
 // API: Create cat
 app.post('/api/cats', requireAdmin, (req, res) => {
-  const { name, age, price, description, status, photos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } = req.body || {};
 
   if (!name || !age || !price || !description) {
     return res.status(400).json({ message: 'Missing required fields' });
@@ -140,6 +141,7 @@ app.post('/api/cats', requireAdmin, (req, res) => {
     description,
     status: finalStatus,
     photos: Array.isArray(photos) ? photos.slice(0, 5) : [],
+    videos: Array.isArray(videos) ? videos.slice(0, 2) : [],
   };
 
   cats.push(newCat);
@@ -150,7 +152,7 @@ app.post('/api/cats', requireAdmin, (req, res) => {
 // API: Update cat
 app.put('/api/cats/:id', requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { name, age, price, description, status, photos } = req.body || {};
+  const { name, age, price, description, status, photos, videos } = req.body || {};
 
   const cats = readCats();
   const index = cats.findIndex((c) => c.id === id);
@@ -172,6 +174,7 @@ app.put('/api/cats/:id', requireAdmin, (req, res) => {
     description: description ?? cats[index].description,
     status: finalStatus,
     photos: Array.isArray(photos) ? photos.slice(0, 5) : cats[index].photos,
+    videos: Array.isArray(videos) ? videos.slice(0, 2) : cats[index].videos,
   };
 
   writeCats(cats);
@@ -193,17 +196,49 @@ app.delete('/api/cats/:id', requireAdmin, (req, res) => {
   res.json({ success: true, removedId: removed.id });
 });
 
-// API: Upload photos (up to 5)
-app.post(
-  '/api/upload',
-  requireAdmin,
-  upload.array('photos', 5),
-  (req, res) => {
-    const files = req.files || [];
-    const filePaths = files.map((f) => `/uploads/${f.filename}`);
-    res.json({ files: filePaths });
-  }
-);
+// API: Upload media (photos up to 5, videos up to 2)
+app.post('/api/upload', requireAdmin, (req, res) => {
+  upload.any()(req, res, (err) => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+          message: 'File too large. Please upload a smaller video (up to 250MB).',
+        });
+      }
+      return res.status(400).json({
+        message: err.message || 'Upload failed',
+      });
+    }
+
+    const files = Array.isArray(req.files) ? req.files : [];
+    const photos = [];
+    const videos = [];
+
+    const normalize = (name) => String(name || '').replace(/\[\]$/, '').toLowerCase();
+
+    for (const f of files) {
+      const field = normalize(f.fieldname);
+      const mime = String(f.mimetype || '').toLowerCase();
+
+      if ((field === 'photos' || field === 'photo' || field === 'images') && mime.startsWith('image/')) {
+        if (photos.length < 5) photos.push(`/uploads/${f.filename}`);
+        else fs.unlink(path.join(uploadsDir, f.filename), () => {});
+        continue;
+      }
+
+      if ((field === 'videos' || field === 'video') && mime.startsWith('video/')) {
+        if (videos.length < 2) videos.push(`/uploads/${f.filename}`);
+        else fs.unlink(path.join(uploadsDir, f.filename), () => {});
+        continue;
+      }
+
+      // Unknown field or mismatched mime -> remove to avoid clutter
+      fs.unlink(path.join(uploadsDir, f.filename), () => {});
+    }
+
+    res.json({ photos, videos });
+  });
+});
 
 // Fallback routes for SPA-like behavior
 app.get('/admin/*', (req, res) => {
