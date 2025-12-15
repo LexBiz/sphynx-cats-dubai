@@ -55,8 +55,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    // до ~50МБ на файл, чтобы можно было загружать короткие видео
-    fileSize: 50 * 1024 * 1024,
+    // до ~200МБ на файл (видео), фото обычно меньше
+    fileSize: 200 * 1024 * 1024,
   },
 });
 
@@ -198,22 +198,31 @@ app.delete('/api/cats/:id', requireAdmin, (req, res) => {
 });
 
 // API: Upload media (photos up to 5, videos up to 2)
-app.post(
-  '/api/upload',
-  requireAdmin,
+app.post('/api/upload', requireAdmin, (req, res) => {
   upload.fields([
     { name: 'photos', maxCount: 5 },
     { name: 'videos', maxCount: 2 },
-  ]),
-  (req, res) => {
+  ])(req, res, (err) => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+          message:
+            'Файл слишком большой. Сожмите видео или загрузите файл меньшего размера (до 200MB).',
+        });
+      }
+      return res.status(400).json({
+        message: err.message || 'Upload failed',
+      });
+    }
+
     const files = req.files || {};
     const photoFiles = files.photos || [];
     const videoFiles = files.videos || [];
     const photos = photoFiles.map((f) => `/uploads/${f.filename}`);
     const videos = videoFiles.map((f) => `/uploads/${f.filename}`);
     res.json({ photos, videos });
-  }
-);
+  });
+});
 
 // Fallback routes for SPA-like behavior
 app.get('/admin/*', (req, res) => {

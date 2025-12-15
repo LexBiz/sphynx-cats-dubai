@@ -6,6 +6,41 @@ const STATUS_ORDER = {
   sold: 2,
 };
 
+const MAX_PHOTO_FILES = 5;
+const MAX_VIDEO_FILES = 2;
+// Must be <= server multer limit
+const MAX_VIDEO_MB = 200;
+const MAX_PHOTO_MB = 20;
+
+function validateSelectedFiles(photoFiles, videoFiles) {
+  const errors = [];
+
+  if (photoFiles && photoFiles.length > MAX_PHOTO_FILES) {
+    errors.push(`Фото: максимум ${MAX_PHOTO_FILES} файлів.`);
+  }
+  if (videoFiles && videoFiles.length > MAX_VIDEO_FILES) {
+    errors.push(`Відео: максимум ${MAX_VIDEO_FILES} файлів.`);
+  }
+
+  if (photoFiles) {
+    for (const f of Array.from(photoFiles)) {
+      if (f.size > MAX_PHOTO_MB * 1024 * 1024) {
+        errors.push(`Фото "${f.name}" завелике (>${MAX_PHOTO_MB}MB).`);
+      }
+    }
+  }
+
+  if (videoFiles) {
+    for (const f of Array.from(videoFiles)) {
+      if (f.size > MAX_VIDEO_MB * 1024 * 1024) {
+        errors.push(`Відео "${f.name}" завелике (>${MAX_VIDEO_MB}MB).`);
+      }
+    }
+  }
+
+  return errors;
+}
+
 function setLoggedIn(loggedIn) {
   const loginSection = document.getElementById('loginSection');
   const adminSection = document.getElementById('adminSection');
@@ -189,17 +224,22 @@ async function uploadMedia(photoFiles, videoFiles) {
     return { photos: [], videos: [] };
   }
 
+  const validationErrors = validateSelectedFiles(photoFiles, videoFiles);
+  if (validationErrors.length) {
+    throw new Error(validationErrors.join(' '));
+  }
+
   const formData = new FormData();
 
   if (havePhotos) {
     Array.from(photoFiles)
-      .slice(0, 5)
+      .slice(0, MAX_PHOTO_FILES)
       .forEach((file) => formData.append('photos', file));
   }
 
   if (haveVideos) {
     Array.from(videoFiles)
-      .slice(0, 2)
+      .slice(0, MAX_VIDEO_FILES)
       .forEach((file) => formData.append('videos', file));
   }
 
@@ -209,8 +249,18 @@ async function uploadMedia(photoFiles, videoFiles) {
   });
 
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message || 'Помилка завантаження файлів');
+    let message = `Помилка завантаження файлів (HTTP ${res.status}).`;
+    const ct = res.headers.get('content-type') || '';
+    if (ct.includes('application/json')) {
+      const data = await res.json().catch(() => ({}));
+      message = data.message || message;
+    } else {
+      const text = await res.text().catch(() => '');
+      if (text && text.trim()) {
+        message = `${message} ${text.trim().slice(0, 160)}`;
+      }
+    }
+    throw new Error(message);
   }
 
   const data = await res.json();
