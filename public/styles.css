@@ -69,6 +69,52 @@ body {
   box-shadow: 0 8px 20px rgba(1, 5, 16, 0.7);
 }
 
+.tamara-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #f3b07f 0%,
+    #f6e7a2 35%,
+    #e4a4e8 68%,
+    #7db7ff 100%
+  );
+  color: #0b0b0b;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.lang-group-vertical {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.lang-switcher-vertical {
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 18px;
+  background: rgba(4, 16, 34, 0.75);
+  border: 1px solid rgba(80, 130, 190, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.lang-switcher-vertical .lang-btn {
+  width: 52px;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 11px;
+}
+
 .lang-label {
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -125,6 +171,12 @@ body {
   .lang-group {
     gap: 8px;
     padding: 5px 10px;
+  }
+
+  .tamara-pill {
+    height: 38px;
+    padding: 0 16px;
+    font-size: 28px;
   }
 }
 
@@ -444,6 +496,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 14px;
 }
 
 .hero-orbit {
