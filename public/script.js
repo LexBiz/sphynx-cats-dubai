@@ -14,6 +14,9 @@ const I18N = {
     hero: {
       badge: 'Dubai • Exclusive cattery',
       title: 'Premium Sphynx Cats for Sale',
+      titleLine1: 'Premium Sphynx',
+      titleLine2: 'Kittens in Dubai',
+      titleLine3: 'Ready for rehoming',
       subtitle:
         'Healthy, friendly and stunning sphynx kittens with perfect temperament and premium care.',
       ctaPrimary: 'View available kittens',
@@ -89,6 +92,9 @@ const I18N = {
     hero: {
       badge: 'Дубай • Бутік-питомник',
       title: 'Премиальные сфинксы на продажу',
+      titleLine1: 'Премиальные сфинксы',
+      titleLine2: 'Котята в Дубае',
+      titleLine3: 'Готовы к переезду',
       subtitle:
         'Здоровые, контактные и очень красивые котята сфинкса с идеальным темпераментом и уходом.',
       ctaPrimary: 'Смотреть доступных котят',
@@ -164,6 +170,9 @@ const I18N = {
     hero: {
       badge: 'دبي • مزرعة سفنكس حصرية',
       title: 'قطط سفنكس فاخرة للبيع',
+      titleLine1: 'سفنكس فاخرة',
+      titleLine2: 'قطط صغيرة في دبي',
+      titleLine3: 'جاهزة لبيت جديد',
       subtitle:
         'قطط وكِتَن سفنكس صحية وحنونة وجميلة، مع عناية خاصة وطباع هادئة.',
       ctaPrimary: 'عرض الكِتَن المتاحة',
